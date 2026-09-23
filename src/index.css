@@ -1,0 +1,323 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #050608;
+  --hull: #0a0c0f;
+  --panel: #101318;
+  --steel: #1b1f25;
+  --bone: #ece8e1;
+  --ash: #9a9ea5;
+  --dim: #62666d;
+  --ignition: #ff4d1a;
+  --flare: #ff7a3d;
+  --lox: #8fd3ff;
+  --nominal: #5be49b;
+  --line: rgba(236, 232, 225, 0.09);
+  --line-strong: rgba(236, 232, 225, 0.18);
+  --nav-h: 72px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background: var(--void);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-padding-top: var(--nav-h);
+  }
+
+  body {
+    @apply bg-void font-body text-bone antialiased;
+    font-size: 17px;
+    line-height: 1.6;
+    min-height: 100dvh;
+    font-stretch: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--lox);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--ignition);
+    color: var(--void);
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .page-x {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Expanded display cut: Archivo on its wide axis */
+  .display {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .display-soft {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-stretch: 112%;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+  }
+
+  .mono {
+    font-family: 'Martian Mono', ui-monospace, monospace;
+    font-stretch: 87.5%;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .btn-ignite {
+    @apply relative inline-flex min-h-[52px] cursor-pointer select-none items-center justify-center gap-3 overflow-hidden
+      bg-ignition px-7 text-[15px] font-semibold text-void transition-colors duration-200 hover:bg-flare
+      active:bg-ember;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+
+  .btn-line {
+    @apply relative inline-flex min-h-[52px] cursor-pointer select-none items-center justify-center gap-3 border
+      border-bone/20 px-6 text-[15px] font-medium text-bone transition-colors duration-200 hover:border-bone/60
+      hover:bg-bone/[0.04];
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Atmosphere ─────────────────────────────────────────────────────────── */
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  z-index: 65;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(6) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-6%, -2%); }
+  80% { transform: translate(5%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
+.blueprint {
+  background-image:
+    linear-gradient(to right, rgba(236, 232, 225, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(236, 232, 225, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.scanlines {
+  background-image: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px);
+}
+
+/* Duotone treatment that ties the client's phone photos into one look */
+.duotone {
+  position: relative;
+  overflow: hidden;
+  background: #120a06;
+}
+
+.duotone img {
+  filter: grayscale(1) contrast(1.15) brightness(0.85);
+  mix-blend-mode: luminosity;
+  transition: filter 0.6s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+.duotone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255, 77, 26, 0.28), rgba(5, 6, 8, 0.1) 60%);
+  mix-blend-mode: color;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.group:hover .duotone img,
+.duotone:hover img {
+  filter: grayscale(0) contrast(1.05) brightness(1);
+  mix-blend-mode: normal;
+}
+
+.group:hover .duotone::after,
+.duotone:hover::after {
+  opacity: 0;
+}
+
+/* Corner ticks for HUD panels */
+.ticks {
+  --tick: 10px;
+  --tick-c: rgba(236, 232, 225, 0.45);
+  background:
+    linear-gradient(var(--tick-c), var(--tick-c)) top left / var(--tick) 1px,
+    linear-gradient(var(--tick-c), var(--tick-c)) top left / 1px var(--tick),
+    linear-gradient(var(--tick-c), var(--tick-c)) top right / var(--tick) 1px,
+    linear-gradient(var(--tick-c), var(--tick-c)) top right / 1px var(--tick),
+    linear-gradient(var(--tick-c), var(--tick-c)) bottom left / var(--tick) 1px,
+    linear-gradient(var(--tick-c), var(--tick-c)) bottom left / 1px var(--tick),
+    linear-gradient(var(--tick-c), var(--tick-c)) bottom right / var(--tick) 1px,
+    linear-gradient(var(--tick-c), var(--tick-c)) bottom right / 1px var(--tick);
+  background-repeat: no-repeat;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(236, 232, 225, 0.22);
+}
+
+/* Schematic flow lines */
+.flow {
+  stroke-dasharray: 4 10;
+  animation: flow-run 1.4s linear infinite;
+  animation-play-state: paused;
+}
+
+.group:hover .flow,
+.flow-live .flow {
+  animation-play-state: running;
+}
+
+@keyframes flow-run {
+  to { stroke-dashoffset: -28; }
+}
+
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.8s var(--ease-out) infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(91, 228, 155, 0.55); }
+  80%, 100% { box-shadow: 0 0 0 8px rgba(91, 228, 155, 0); }
+}
+
+/* Custom HUD cursor: hide the system cursor only while ours is active (fine pointers, motion allowed) */
+html.hud-cursor,
+html.hud-cursor * {
+  cursor: none !important;
+}
+
+html.hud-cursor input,
+html.hud-cursor textarea {
+  cursor: text !important;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23272e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  from { transform: scale(0.08); opacity: 0.9; }
+  to { transform: scale(1); opacity: 0; }
+}
+
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes pulse-travel {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateX(145px); opacity: 0; }
+}
