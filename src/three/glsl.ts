@@ -54,14 +54,15 @@ float ptNoise(vec3 v) {
 }
 `
 
-// Brand "fire and ice" false-colour ramp for the CFD view: deep blue → LOX → white → amber → ignition.
+// Brand "fire and ice" false-colour ramp for the CFD view: deep blue → LOX → straw → amber → ignition.
+// No white stop: it would vanish against the white page.
 export const RAMP_GLSL = /* glsl */ `
 vec3 ptLin(vec3 c) { return pow(c, vec3(2.2)); }
 
 vec3 ptRamp(float t) {
   vec3 c = mix(vec3(0.04, 0.12, 0.30), vec3(0.12, 0.48, 0.88), smoothstep(0.0, 0.25, t));
   c = mix(c, vec3(0.56, 0.83, 1.0), smoothstep(0.2, 0.42, t));
-  c = mix(c, vec3(0.95, 0.94, 0.91), smoothstep(0.4, 0.58, t));
+  c = mix(c, vec3(1.0, 0.86, 0.42), smoothstep(0.4, 0.58, t));
   c = mix(c, vec3(1.0, 0.70, 0.28), smoothstep(0.55, 0.74, t));
   c = mix(c, vec3(1.0, 0.30, 0.10), smoothstep(0.72, 0.9, t));
   c = mix(c, vec3(0.62, 0.10, 0.05), smoothstep(0.9, 1.0, t));

@@ -15,8 +15,8 @@ const [LIQUID_ROCKET, ...OTHERS] = PROJECTILES
 function Readout({ label, unit, readoutRef, initial }: { label: string; unit: string; readoutRef: React.RefObject<HTMLSpanElement | null>; initial: string }) {
   return (
     <div className="border-l border-bone/15 pl-4">
-      <p className="mono text-[9px] text-ash">{label}</p>
-      <p className="display-soft tnum mt-1 text-[clamp(24px,2.4vw,34px)] text-bone">
+      <p className="eyebrow text-[10px] text-dim">{label}</p>
+      <p className="display-soft tnum mt-2 text-[clamp(26px,2.6vw,38px)] text-bone">
         <span ref={readoutRef}>{initial}</span>
         <span className="mono ml-1 text-[10px] normal-case text-ash">{unit}</span>
       </p>
@@ -26,23 +26,23 @@ function Readout({ label, unit, readoutRef, initial }: { label: string; unit: st
 
 export function ProjectileCard({ projectile, index }: { projectile: Projectile; index: number }) {
   return (
-    <Reveal delay={index * 0.1} className="ticks flex h-full flex-col bg-hull/70 p-6 sm:p-8">
+    <Reveal delay={index * 0.1} className="flex h-full flex-col border border-bone/10 bg-hull p-7 sm:p-9">
       <div className="flex items-start justify-between gap-4">
-        <p className="mono text-[10px] text-ignition">{projectile.short}</p>
-        <span className="mono border border-bone/15 px-2 py-1 text-[9px] text-ash">In development</span>
+        <p className="eyebrow text-ignition">{projectile.short}</p>
+        <span className="eyebrow border border-bone/15 px-2.5 py-1 text-[10px] text-ash">In development</span>
       </div>
-      <h3 className="display-soft mt-4 text-[clamp(24px,2.4vw,32px)] text-bone">{projectile.name}</h3>
+      <h3 className="display-soft mt-5 text-[clamp(26px,2.4vw,34px)] text-bone">{projectile.name}</h3>
       <p className="mt-2 text-ash">{projectile.summary}</p>
-      <dl className="mt-8 grid grid-cols-2 gap-px bg-bone/10">
+      <dl className="mt-8 grid grid-cols-2 gap-px bg-bone/10 [&>*:last-child:nth-child(odd)]:col-span-2">
         {projectile.specs.map((spec) => (
           <div key={spec.label} className="bg-hull p-3">
-            <dt className="mono text-[9px] text-dim">{spec.label}</dt>
+            <dt className="eyebrow text-[10px] text-dim">{spec.label}</dt>
             <dd className="mt-1 text-[15px] text-bone">{spec.value}</dd>
           </div>
         ))}
       </dl>
       {projectile.engagement ? (
-        <p className="mono mt-6 text-[10px] leading-relaxed text-ash">
+        <p className="mt-6 text-[14px] leading-relaxed text-ash">
           <span className="text-dim">Engagement set · </span>
           {projectile.engagement.join(' · ')}
         </p>
@@ -64,10 +64,10 @@ export function Projectiles() {
     <>
       <section ref={sectionRef} className="relative h-[260vh]" aria-labelledby="projectiles-title">
         <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
-          <div className="blueprint pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+          <div className="blueprint pointer-events-none absolute inset-0" aria-hidden />
           <div className="page-x relative grid w-full items-center gap-10 pt-[var(--nav-h)] lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
             <div>
-              <SectionLabel index="05" tone="ignition">
+              <SectionLabel>
                 High-speed projectiles · in development
               </SectionLabel>
               <SplitHeading

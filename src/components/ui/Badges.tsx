@@ -2,16 +2,16 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
-/** Marks anything invented for the concept (simulated telemetry, sample flows). */
+/** Marks anything invented for the concept (simulated telemetry, illustrative profiles). */
 export function ConceptBadge({ children = 'Concept', className }: { children?: ReactNode; className?: string }) {
   return (
     <span
       className={cn(
-        'mono inline-flex items-center gap-2 border border-lox/30 bg-lox/[0.06] px-2 py-1 text-[10px] text-lox',
+        'eyebrow inline-flex items-center gap-2 border border-bone/15 px-2.5 py-1 text-[10px] text-ash',
         className,
       )}
     >
-      <span className="size-1.5 rounded-full bg-lox" aria-hidden />
+      <span className="size-1 rounded-full bg-ash" aria-hidden />
       {children}
     </span>
   )
@@ -24,7 +24,7 @@ export function StatusDot({ tone = 'nominal' }: { tone?: 'nominal' | 'ignition' 
 
 export function Chip({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cn('mono inline-flex items-center border border-bone/15 px-3 py-1.5 text-[10px] text-ash', className)}>
+    <span className={cn('inline-flex items-center border border-bone/15 px-3 py-1.5 text-[13px] text-ash', className)}>
       {children}
     </span>
   )

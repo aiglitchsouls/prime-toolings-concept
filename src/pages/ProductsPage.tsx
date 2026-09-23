@@ -24,8 +24,7 @@ function FamilyFilter({ active, onChange }: { active: Family | 'all'; onChange: 
             type="button"
             aria-pressed={isActive}
             onClick={() => onChange(family.id)}
-            className={cn(
-              'mono relative min-h-[44px] shrink-0 cursor-pointer border px-4 text-[10px] transition-colors duration-300',
+            className={cn( 'eyebrow relative min-h-[44px] shrink-0 cursor-pointer border px-4 text-[11px] transition-colors duration-300',
               isActive ? 'border-ignition text-void' : 'border-bone/15 text-ash hover:border-bone/40 hover:text-bone',
             )}
           >
@@ -50,7 +49,6 @@ export function ProductsPage() {
   return (
     <>
       <PageHero
-        index="01"
         label="Propulsion catalogue · Aeroignite Systems"
         lines={['Thrust,', 'by the', '*kilonewton.*']}
         intro="High-speed, high-power thrusters that drive rockets and missiles. Ten product lines spanning boosters, liquid, hybrid, detonation and air-breathing propulsion, each one customized to the mission."
@@ -72,7 +70,7 @@ export function ProductsPage() {
       <section className="page-x pt-28" aria-labelledby="systems-title">
         <div className="mb-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <SectionLabel index="01.1" tone="ignition">
+            <SectionLabel>
               All systems
             </SectionLabel>
             <SplitHeading id="systems-title" lines={['Every system,', '*one sheet each.*']} className="display mt-6 text-[clamp(34px,4.4vw,64px)]" />
@@ -80,7 +78,7 @@ export function ProductsPage() {
           <FamilyFilter active={family} onChange={setFamily} />
         </div>
         <LayoutGroup>
-          <motion.ul layout className="grid gap-px bg-bone/10 sm:grid-cols-2 xl:grid-cols-3">
+          <motion.ul layout className="grid border-l border-t border-bone/10 sm:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence initial={false} mode="popLayout">
               {visible.map((product) => (
                 <ProductCard key={product.id} product={product} index={PRODUCTS.indexOf(product)} onOpen={open} />
@@ -91,7 +89,7 @@ export function ProductsPage() {
       </section>
 
       <section className="page-x pt-32" aria-labelledby="hsp-title">
-        <SectionLabel index="01.2" tone="ignition">
+        <SectionLabel>
           In development
         </SectionLabel>
         <SplitHeading id="hsp-title" lines={['High-speed', '*projectiles.*']} className="display mb-12 mt-6 text-[clamp(34px,4.4vw,64px)]" />

@@ -4,12 +4,13 @@ import { spikeRadius, SPIKE_TIP_Y, THROAT_Y } from './profiles'
 
 // Engineering overlay: centre axis, rotating HUD ring, blueprint floor and CFD streamlines.
 
-const BONE = new THREE.Color('#ece8e1')
+// Drawing ink: the overlay sits on a white page.
+const INK = new THREE.Color('#1a1d22')
 
 function axisLine() {
   const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 3.8, 0), new THREE.Vector3(0, -4.6, 0)])
   const material = new THREE.LineDashedMaterial({
-    color: BONE,
+    color: INK,
     dashSize: 0.09,
     gapSize: 0.07,
     transparent: true,
@@ -36,7 +37,7 @@ function hudRing(radius: number, y: number) {
   }
   const geometry = new THREE.BufferGeometry()
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  const material = new THREE.LineBasicMaterial({ color: BONE, transparent: true, opacity: 0.18, depthWrite: false })
+  const material = new THREE.LineBasicMaterial({ color: INK, transparent: true, opacity: 0.18, depthWrite: false })
   const ring = new THREE.LineSegments(geometry, material)
   ring.position.y = y
   return ring
@@ -59,7 +60,7 @@ void main() {
   vec2 g = abs(fract(coord - 0.5) - 0.5) / fwidth(coord);
   float line = 1.0 - min(min(g.x, g.y), 1.0);
   float fade = 1.0 - smoothstep(1.2, 6.5, length(vWorld.xz));
-  gl_FragColor = vec4(vec3(0.93, 0.91, 0.88), line * fade * 0.22 * uOpacity);
+  gl_FragColor = vec4(vec3(0.1, 0.11, 0.13), line * fade * 0.16 * uOpacity);
 }
 `
 
@@ -93,10 +94,10 @@ varying float vProgress;
 void main() {
   float phase = fract(vProgress * 8.0 - uTime * 0.85);
   float dash = smoothstep(0.0, 0.12, phase) * (1.0 - smoothstep(0.3, 0.55, phase));
-  vec3 cold = vec3(0.56, 0.83, 1.0);
-  vec3 hot = vec3(1.0, 0.36, 0.1);
+  vec3 cold = vec3(0.05, 0.33, 0.72);
+  vec3 hot = vec3(0.95, 0.24, 0.05);
   vec3 color = mix(cold, hot, smoothstep(0.15, 0.75, vProgress));
-  gl_FragColor = vec4(color * 1.3, (0.12 + dash * 0.88) * uOpacity);
+  gl_FragColor = vec4(color, (0.18 + dash * 0.82) * uOpacity);
 }
 `
 
@@ -145,7 +146,6 @@ function streamlines(time: THREE.IUniform<number>) {
     uniforms: { uTime: time, uOpacity: { value: 0 } },
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
   })
   return new THREE.LineSegments(geometry, material)
 }

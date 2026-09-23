@@ -33,7 +33,7 @@ export function DomainTabs() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
-      <div role="tablist" aria-label="Technology domains" aria-orientation="vertical" className="flex flex-col gap-px bg-bone/10" onKeyDown={onKeyDown}>
+      <div role="tablist" aria-label="Technology domains" aria-orientation="vertical" className="flex flex-col gap-px self-start bg-bone/10" onKeyDown={onKeyDown}>
         {DOMAINS.map((item, i) => {
           const isActive = item.id === active
           return (
@@ -53,10 +53,10 @@ export function DomainTabs() {
             >
               {isActive ? <motion.span layoutId="domain-bar" className="absolute inset-y-0 left-0 w-[3px] bg-ignition" /> : null}
               <span className="flex items-center gap-4">
-                <span className="mono text-[10px] text-ignition">{pad(i + 1)}</span>
+                <span className="eyebrow text-[11px] text-ignition">{pad(i + 1)}</span>
                 <span className="display-soft text-[20px]">{item.title}</span>
               </span>
-              <span className="mono text-[10px] text-dim">{pad(item.items.length)}</span>
+              <span className="eyebrow text-[11px] text-dim">{pad(item.items.length)}</span>
             </button>
           )
         })}
@@ -84,7 +84,7 @@ export function DomainTabs() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.05 + i * 0.035, ease: EASE_OUT }}
                 >
-                  <span className="mono pt-1 text-[10px] text-dim">{pad(i + 1)}</span>
+                  <span className="eyebrow pt-1 text-[11px] text-dim">{pad(i + 1)}</span>
                   {item}
                 </motion.li>
               ))}

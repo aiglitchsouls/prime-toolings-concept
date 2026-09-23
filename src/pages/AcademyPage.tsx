@@ -17,19 +17,19 @@ function ProgramBlock({ program, index }: { program: Program; index: number }) {
       <Reveal>
         <p className="display text-[clamp(64px,8vw,120px)] leading-none text-bone/10">{program.code}</p>
         <h3 className="display mt-2 text-[clamp(26px,2.9vw,42px)]">{program.title}</h3>
-        <p className="mono mt-4 text-[11px] text-ignition">{program.outcome}</p>
+        <p className="eyebrow mt-4 text-ignition">{program.outcome}</p>
       </Reveal>
       <Reveal delay={0.1}>
         <p className="text-lg text-ash">{program.lead}</p>
-        <ol className="mt-8 grid gap-px bg-bone/10 sm:grid-cols-2">
+        <ol className="mt-8 grid gap-px bg-bone/10 sm:grid-cols-2 sm:[&>*:last-child:nth-child(odd)]:col-span-2">
           {program.modules.map((module, i) => (
             <li key={module} className="flex items-baseline gap-4 bg-void p-4 text-bone/90">
-              <span className="mono text-[10px] text-dim">{pad(i + 1)}</span>
+              <span className="eyebrow text-[11px] text-dim">{pad(i + 1)}</span>
               {module}
             </li>
           ))}
         </ol>
-        <Link to={`/contact?topic=academy&program=${program.id}`} className="btn-line mt-8" data-cursor="Register">
+        <Link to={`/contact?topic=academy&program=${program.id}`} className="btn-line mt-8">
           Register for {program.code} <ArrowUpRight className="size-4" aria-hidden />
         </Link>
       </Reveal>
@@ -42,7 +42,6 @@ export function AcademyPage() {
   return (
     <>
       <PageHero
-        index="04"
         label="Academy · courses & internships"
         lines={['Industry-ready', 'starts on the', '*test stand.*']}
         intro={ACADEMY_INTRO}
@@ -58,7 +57,7 @@ export function AcademyPage() {
       />
 
       <section className="page-x" aria-labelledby="programs-title">
-        <SectionLabel index="04.1" tone="ignition">
+        <SectionLabel>
           Skill development programs
         </SectionLabel>
         <SplitHeading id="programs-title" lines={['Three programs.', '*One standard.*']} className="display mb-6 mt-6 text-[clamp(34px,4.4vw,64px)]" />
@@ -67,10 +66,10 @@ export function AcademyPage() {
         ))}
       </section>
 
-      <section className="relative mt-16 overflow-hidden border-y border-bone/10 bg-hull" aria-labelledby="touch-title">
+      <section className="relative mt-16 overflow-hidden border-t border-bone/10" aria-labelledby="touch-title">
         <div className="page-x grid items-center gap-12 py-24 lg:grid-cols-2">
           <div>
-            <SectionLabel index="04.2" tone="ignition">
+            <SectionLabel>
               Hands on
             </SectionLabel>
             <SplitHeading
@@ -85,7 +84,7 @@ export function AcademyPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {AUDIENCES.map((audience) => (
-                <span key={audience} className="mono border border-bone/15 px-3 py-1.5 text-[10px] text-ash">
+                <span key={audience} className="eyebrow border border-bone/15 px-3 py-1.5 text-[11px] text-ash">
                   {audience}
                 </span>
               ))}

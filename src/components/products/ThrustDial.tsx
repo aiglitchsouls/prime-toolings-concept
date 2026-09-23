@@ -28,7 +28,7 @@ function DialRow({ product, value, onSelect }: { product: Product; value: number
       <button
         type="button"
         onClick={onSelect}
-        data-cursor="Spec sheet"
+       
         className="group grid w-full cursor-pointer grid-cols-[minmax(0,1fr)] items-center gap-2 py-3 text-left sm:grid-cols-[210px_minmax(0,1fr)_110px] sm:gap-6"
       >
         <span className={cn('text-[15px] transition-colors duration-300', isMatch ? 'text-bone' : 'text-dim')}>
@@ -39,7 +39,7 @@ function DialRow({ product, value, onSelect }: { product: Product; value: number
           <span
             className={cn(
               'absolute inset-y-0 transition-[background-color,box-shadow] duration-300',
-              isMatch ? 'bg-ignition shadow-[0_0_18px_rgba(255,77,26,0.55)]' : 'bg-bone/20 group-hover:bg-bone/40',
+              isMatch ? 'bg-ignition shadow-[0_0_18px_rgba(242,70,26,0.55)]' : 'bg-bone/20 group-hover:bg-bone/40',
             )}
             style={{ left: `${left}%`, width: `${width}%` }}
           />
@@ -70,22 +70,22 @@ export function ThrustDial({ onSelect, className }: ThrustDialProps) {
   }, [isInView, shouldReduceMotion, hasTouched])
 
   return (
-    <div ref={rootRef} className={cn('ticks bg-hull/80 p-5 sm:p-8', className)}>
+    <div ref={rootRef} className={cn('border border-bone/10 bg-hull p-6 sm:p-10', className)}>
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="mono text-[10px] text-ash">Required thrust</p>
+          <p className="eyebrow text-dim">Required thrust</p>
           <p className="display tnum mt-2 text-[clamp(44px,6vw,88px)] text-bone">
             <Units text={formatForce(value)} />
           </p>
         </div>
-        <p className="mono pb-3 text-[11px] text-ash">
+        <p className="eyebrow pb-3 text-ash">
           <span className="text-ignition">{String(matches.length).padStart(2, '0')}</span> systems match
         </p>
       </div>
 
       <div className="relative mt-8">
         <div className="grid gap-2 sm:grid-cols-[210px_minmax(0,1fr)_110px] sm:gap-6">
-          <p className="mono hidden self-center text-[9px] text-dim sm:block">Log scale · drag</p>
+          <p className="eyebrow hidden self-center text-[10px] text-dim sm:block">Log scale · drag</p>
           <DialTrack
             dial={dial}
             label={formatForce(value)}
@@ -126,7 +126,7 @@ function DialTrack({ dial, label, onChange }: { dial: number; label: string; onC
         </span>
       ))}
       <span className="pointer-events-none absolute top-0 h-full" style={{ left: `${dial * 100}%` }}>
-        <span className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-ignition bg-void shadow-[0_0_24px_rgba(255,77,26,0.6)]" />
+        <span className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-ignition bg-void shadow-[0_0_24px_rgba(242,70,26,0.6)]" />
       </span>
       <input
         type="range"
@@ -136,7 +136,7 @@ function DialTrack({ dial, label, onChange }: { dial: number; label: string; onC
         value={dial}
         aria-label="Required thrust"
         aria-valuetext={label}
-        data-cursor="Drag"
+       
         onChange={(event) => onChange(Number(event.target.value))}
         className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
       />

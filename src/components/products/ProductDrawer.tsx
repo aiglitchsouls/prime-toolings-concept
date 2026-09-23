@@ -44,10 +44,10 @@ function Specs({ product }: { product: Product }) {
     { label: 'Line', value: 'Aeroignite Systems' },
   ]
   return (
-    <dl className="grid grid-cols-2 gap-px bg-bone/10">
+    <dl className="grid grid-cols-2 gap-px bg-bone/10 [&>*:last-child:nth-child(odd)]:col-span-2">
       {rows.map((row) => (
         <div key={row.label} className="bg-hull p-4">
-          <dt className="mono text-[9px] text-dim">{row.label}</dt>
+          <dt className="eyebrow text-[10px] text-dim">{row.label}</dt>
           <dd className="mt-1 text-[15px] text-bone">{row.value}</dd>
         </div>
       ))}
@@ -84,7 +84,7 @@ export function ProductDrawer({ product, onClose }: ProductDrawerProps) {
             transition={{ duration: 0.6, ease: EASE_OUT }}
           >
             <div className="sticky top-0 z-[1] flex items-center justify-between border-b border-bone/10 bg-hull/90 px-6 py-4 backdrop-blur">
-              <span className="mono text-[10px] text-ignition">Spec sheet · {familyLabel(product)}</span>
+              <span className="eyebrow text-[11px] text-ignition">Spec sheet · {familyLabel(product)}</span>
               <button
                 ref={closeRef}
                 type="button"
@@ -107,10 +107,10 @@ export function ProductDrawer({ product, onClose }: ProductDrawerProps) {
               {product.photo ? (
                 <figure>
                   <Photo photo={product.photo} alt={`${product.name}, Prime Toolings hardware`} width={1000} height={640} className="aspect-[25/16] w-full" />
-                  <figcaption className="mono mt-2 text-[9px] text-dim">Hardware photo · Prime Toolings</figcaption>
+                  <figcaption className="eyebrow mt-2 text-[10px] text-dim">Hardware photo · Prime Toolings</figcaption>
                 </figure>
               ) : null}
-              <Link to={`/contact?topic=propulsion&system=${product.id}`} className="btn-ignite w-full" data-cursor="Request">
+              <Link to={`/contact?topic=propulsion&system=${product.id}`} className="btn-ignite w-full">
                 Request the datasheet <ArrowUpRight className="size-4" aria-hidden />
               </Link>
             </div>

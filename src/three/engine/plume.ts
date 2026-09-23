@@ -3,8 +3,8 @@ import * as THREE from 'three'
 import { NOISE_GLSL } from '../glsl'
 import { SPIKE_TIP_Y, THROAT_Y } from './profiles'
 
-// Exhaust: two additive lathe shells (outer envelope + hot sheet hugging the spike),
-// shock diamonds past the truncated tip, sparks and a throat flare.
+// Exhaust: two lathe shells (outer envelope + hot sheet hugging the spike), shock diamonds past the
+// truncated tip, sparks and a throat flare. Normal blending, not additive: additive light vanishes on white.
 
 const PLUME_LENGTH = 6.2
 
@@ -44,15 +44,15 @@ void main() {
   float reach = mix(1.0, 0.55, uCore);
   float fade = (1.0 - smoothstep(0.35 * reach, reach, u)) * smoothstep(0.0, 0.025, u);
   float intensity = (body * 0.85 + diamonds * 1.2) * (0.45 + 0.75 * n1) * (0.75 + 0.5 * n2) * fade;
-  vec3 hot = vec3(1.0, 0.96, 0.9);
-  vec3 mid = vec3(1.0, 0.5, 0.16);
-  vec3 cool = vec3(0.75, 0.13, 0.04);
+  vec3 hot = vec3(1.0, 0.78, 0.3);
+  vec3 mid = vec3(1.0, 0.36, 0.08);
+  vec3 cool = vec3(0.62, 0.1, 0.03);
   float edge = 1.0 - facing;
   vec3 color = mix(hot, mid, smoothstep(0.02, 0.42, u + edge * 0.45 - uCore * 0.12));
   color = mix(color, cool, smoothstep(0.45, 1.0, u + edge * 0.25));
-  color = mix(vec3(0.55, 0.78, 1.0), color, smoothstep(0.0, 0.05, u));
-  float gain = mix(0.6, 1.5, uCore);
-  gl_FragColor = vec4(color * gain, intensity * uThrottle);
+  color = mix(vec3(0.12, 0.45, 0.9), color, smoothstep(0.0, 0.05, u));
+  float gain = mix(0.95, 1.15, uCore);
+  gl_FragColor = vec4(color * gain, clamp(intensity * uThrottle * mix(1.5, 2.2, uCore), 0.0, 1.0));
 }
 `
 
@@ -83,7 +83,6 @@ function plumeShell(core: boolean, time: THREE.IUniform<number>, throttle: THREE
     uniforms: { uTime: time, uThrottle: throttle, uCore: { value: core ? 1 : 0 } },
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
     side: THREE.DoubleSide,
   })
   return new THREE.Mesh(geometry, material)
@@ -114,7 +113,7 @@ varying float vLife;
 void main() {
   float d = length(gl_PointCoord - 0.5);
   float a = smoothstep(0.5, 0.0, d) * vLife;
-  gl_FragColor = vec4(vec3(1.0, 0.62, 0.28) * 2.2, a);
+  gl_FragColor = vec4(vec3(0.95, 0.33, 0.06), a);
 }
 `
 
@@ -130,7 +129,6 @@ function sparks(count: number, time: THREE.IUniform<number>, throttle: THREE.IUn
     uniforms: { uTime: time, uThrottle: throttle, uPixel: { value: pixel } },
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
   })
   const points = new THREE.Points(geometry, material)
   points.frustumCulled = false
@@ -143,10 +141,10 @@ function glowTexture() {
   const ctx = canvas.getContext('2d')
   if (ctx) {
     const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64)
-    gradient.addColorStop(0, 'rgba(255,250,240,1)')
-    gradient.addColorStop(0.18, 'rgba(255,190,120,0.85)')
-    gradient.addColorStop(0.45, 'rgba(255,90,30,0.28)')
-    gradient.addColorStop(1, 'rgba(255,60,20,0)')
+    gradient.addColorStop(0, 'rgba(255,200,90,1)')
+    gradient.addColorStop(0.2, 'rgba(255,120,40,0.75)')
+    gradient.addColorStop(0.5, 'rgba(242,70,26,0.22)')
+    gradient.addColorStop(1, 'rgba(242,70,26,0)')
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, 128, 128)
   }
@@ -177,7 +175,6 @@ export function buildPlume(time: THREE.IUniform<number>, sparkCount: number, pix
   const texture = glowTexture()
   const spriteMaterial = new THREE.SpriteMaterial({
     map: texture,
-    blending: THREE.AdditiveBlending,
     depthWrite: false,
     transparent: true,
     opacity: 0,

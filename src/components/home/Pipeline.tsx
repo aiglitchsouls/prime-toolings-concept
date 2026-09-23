@@ -27,7 +27,7 @@ function StageSegment({ index, label, progress, isActive }: { index: number; lab
       <div className="h-px w-full bg-bone/15">
         <motion.div className="h-px origin-left bg-ignition" style={{ scaleX: fill }} />
       </div>
-      <p className={cn('mono mt-3 text-[9px] transition-colors sm:text-[10px]', isActive ? 'text-bone' : 'text-dim')}>
+      <p className={cn('eyebrow mt-3 text-[11px] transition-colors', isActive ? 'text-bone' : 'text-dim')}>
         <span className="text-ignition">0{index + 1}</span> <span className="hidden sm:inline">{label}</span>
       </p>
     </li>
@@ -46,10 +46,10 @@ function StageCopy({ stage }: { stage: number }) {
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.5, ease: EASE_OUT }}
         >
-          <p className="mono text-[10px] text-ignition">
+          <p className="eyebrow text-ignition">
             {service.code} / 04 · {service.stage}
           </p>
-          <h3 className="display-soft mt-3 text-[clamp(28px,3vw,42px)] text-bone">{service.title}</h3>
+          <h3 className="display-soft mt-4 text-[clamp(28px,3vw,42px)] text-bone">{service.title}</h3>
           <p className="mt-4 text-ash">{service.lead}</p>
           <ul className="mt-5 space-y-2 text-[15px] text-bone/85">
             {service.points.map((point) => (
@@ -66,7 +66,7 @@ function StageCopy({ stage }: { stage: number }) {
 }
 
 /** Scroll-scrubbed lifecycle of one engine: CAD → CFD → exploded assembly → static fire. */
-export function Pipeline({ index = '03' }: { index?: string }) {
+export function Pipeline() {
   const sectionRef = useRef<HTMLElement>(null)
   const sceneRef = useRef<EngineScene | null>(null)
   const [stage, setStage] = useState(0)
@@ -107,13 +107,13 @@ export function Pipeline({ index = '03' }: { index?: string }) {
 
         <div className="page-x pointer-events-none relative z-content flex h-full flex-col justify-end gap-6 pb-8 pt-[calc(var(--nav-h)+1.5rem)] sm:pb-10 lg:justify-between lg:gap-0">
           <header>
-            <SectionLabel index={index} tone="ignition">
+            <SectionLabel>
               In-house, end to end
             </SectionLabel>
-            <h2 id="pipeline-title" className="display mt-4 text-[clamp(26px,4.6vw,68px)] lg:mt-5">
+            <h2 id="pipeline-title" className="display mt-5 text-[clamp(28px,4.4vw,68px)] lg:mt-6">
               One roof.
               <br />
-              Sketch to <span className="text-ignition">static fire.</span>
+              Sketch to <span className="italic text-ignition">static fire.</span>
             </h2>
           </header>
           <div className="space-y-8">

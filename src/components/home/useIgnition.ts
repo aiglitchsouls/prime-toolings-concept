@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 
 import { SIM_ENGINE } from '@/data/simulated'
-import { rumble } from '@/lib/rumble'
-import { soundStore } from '@/lib/store'
 import type { EngineScene } from '@/three/EngineScene'
 
 export type Phase = 'safe' | 'ignition' | 'mainstage' | 'shutdown'
@@ -58,7 +56,6 @@ export function useIgnition(sceneRef: RefObject<EngineScene | null>) {
       window.setTimeout(() => {
         scene.setTargets({ throttle: 1 })
         go('mainstage')
-        if (soundStore.get()) rumble.pop()
         if (navigator.userActivation?.isActive) navigator.vibrate?.(35)
       }, IGNITION_MS),
       window.setTimeout(release, SIM_ENGINE.maxBurnSeconds * 1000),

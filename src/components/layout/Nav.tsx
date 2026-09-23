@@ -1,29 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
+import { Link, NavLink } from 'react-router-dom'
 
-import { Scramble } from '@/components/ui/Scramble'
-import { SoundToggle } from '@/components/ui/SoundToggle'
 import { Wordmark } from '@/components/ui/Wordmark'
 import { NAV_LINKS } from '@/config/brand'
+import { EASE_OUT } from '@/lib/motion'
 import { menuStore, useMenuOpen } from '@/lib/store'
 import { cn } from '@/lib/utils'
-
-const IST = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' })
-
-function IstClock() {
-  const [time, setTime] = useState(() => IST.format(new Date()))
-  useEffect(() => {
-    const id = window.setInterval(() => setTime(IST.format(new Date())), 15_000)
-    return () => clearInterval(id)
-  }, [])
-  return (
-    <span className="mono hidden text-[10px] text-ash xl:inline">
-      BLR <span className="text-bone">{time}</span> IST
-    </span>
-  )
-}
 
 function useNavState() {
   const { scrollY } = useScroll()
@@ -41,65 +26,90 @@ function useNavState() {
   return { isSolid, isHidden }
 }
 
+/** The company's headline milestone, the way category leaders run news above the nav. */
+function AnnouncementBar() {
+  return (
+    <Link
+      to="/products?system=aerospike-engines"
+      className="group flex h-[var(--bar-h)] items-center justify-center gap-3 bg-ignition px-5 text-[13px] font-semibold text-void"
+    >
+      <span className="truncate">India’s first liquid-fuel aerospike engine, tested in Bengaluru</span>
+      <span className="grid size-6 shrink-0 place-items-center rounded-full border border-void/40 transition-colors group-hover:bg-void group-hover:text-ignition">
+        <ArrowRight className="size-3" aria-hidden />
+      </span>
+    </Link>
+  )
+}
+
+function MenuButton({ isOpen }: { isOpen: boolean }) {
+  return (
+    <button
+      type="button"
+      className="flex h-full w-[72px] cursor-pointer flex-col items-center justify-center gap-[7px] border-l border-bone/10 lg:hidden"
+      aria-expanded={isOpen}
+      aria-controls="mobile-menu"
+      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      onClick={() => menuStore.set(!isOpen)}
+    >
+      <span className={cn('h-px w-6 bg-bone transition-transform duration-300', isOpen && 'translate-y-[4px] rotate-45')} />
+      <span className={cn('h-px w-6 bg-bone transition-transform duration-300', isOpen && '-translate-y-[4px] -rotate-45')} />
+    </button>
+  )
+}
+
 export function Nav() {
   const { isSolid, isHidden } = useNavState()
   const isMenuOpen = useMenuOpen()
-  const { pathname } = useLocation()
 
   return (
     <motion.header
-      className={cn(
-        'fixed inset-x-0 top-0 z-nav transition-[background-color,border-color,backdrop-filter] duration-500',
-        isSolid ? 'border-b border-bone/[0.08] bg-void/70 backdrop-blur-xl' : 'border-b border-transparent',
-      )}
+      className="fixed inset-x-0 top-0 z-nav"
       animate={{ y: isHidden && !isMenuOpen ? '-100%' : '0%' }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: EASE_OUT }}
     >
-      <nav className="page-x flex h-[var(--nav-h)] items-center justify-between gap-6" aria-label="Primary">
-        <Link to="/" className="relative z-[1] -m-2 p-2" aria-label="Prime Toolings, home" data-cursor="Home">
-          <Wordmark />
-        </Link>
-
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.to}>
-              <NavLink
-                to={link.to}
-                className="group relative flex min-h-[44px] items-center gap-2 px-3 text-[14px] text-ash transition-colors hover:text-bone aria-[current=page]:text-bone"
-              >
-                <span className="mono text-[9px] text-dim group-hover:text-ignition">{link.code}</span>
-                <Scramble text={link.label} replayOnHover />
-                {pathname.startsWith(link.to) ? (
-                  <motion.span layoutId="nav-active" className="absolute inset-x-3 -bottom-px h-px bg-ignition" />
-                ) : null}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex items-center gap-2 sm:gap-4">
-          <IstClock />
-          <SoundToggle className="hidden sm:inline-flex" />
-          <Link to="/contact" className="btn-ignite hidden min-h-[44px] px-5 text-[14px] sm:inline-flex" data-cursor="Open channel">
-            Contact
+      <AnnouncementBar />
+      <div
+        className={cn(
+          'border-b border-bone/10 transition-colors duration-500',
+          isSolid || isMenuOpen ? 'bg-void/90 backdrop-blur-xl' : 'bg-gradient-to-b from-void/70 to-transparent',
+        )}
+      >
+        <nav className="mx-auto flex h-[72px] max-w-page items-stretch" aria-label="Primary">
+          <Link to="/" className="flex items-center border-r border-bone/10 px-5 sm:px-8 lg:px-10" aria-label="Prime Toolings, home">
+            <Wordmark />
           </Link>
-          <button
-            type="button"
-            className="relative z-[1] flex size-11 cursor-pointer flex-col items-center justify-center gap-[7px] lg:hidden"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => menuStore.set(!isMenuOpen)}
-          >
-            <span
-              className={cn('h-px w-6 bg-bone transition-transform duration-300', isMenuOpen && 'translate-y-[4px] rotate-45')}
-            />
-            <span
-              className={cn('h-px w-6 bg-bone transition-transform duration-300', isMenuOpen && '-translate-y-[4px] -rotate-45')}
-            />
-          </button>
-        </div>
-      </nav>
+
+          <ul className="hidden flex-1 items-stretch lg:flex">
+            {NAV_LINKS.map((link) => (
+              <li key={link.to} className="flex">
+                <NavLink
+                  to={link.to}
+                  className="relative flex items-center px-6 text-[14px] font-medium text-ash transition-colors hover:text-bone aria-[current=page]:text-bone"
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.label}
+                      {isActive ? (
+                        <motion.span layoutId="nav-active" className="absolute inset-x-6 bottom-0 h-[2px] bg-ignition" />
+                      ) : null}
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <div className="ml-auto flex items-stretch">
+            <Link
+              to="/contact"
+              className="hidden items-center gap-3 border-l border-bone/10 px-8 text-[13px] font-semibold uppercase tracking-[0.12em] text-bone transition-colors hover:bg-ignition hover:text-void sm:flex"
+            >
+              Contact <ArrowRight className="size-4" aria-hidden />
+            </Link>
+            <MenuButton isOpen={isMenuOpen} />
+          </div>
+        </nav>
+      </div>
     </motion.header>
   )
 }

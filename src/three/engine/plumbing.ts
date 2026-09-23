@@ -73,7 +73,7 @@ function igniter(m: EngineMaterials) {
   plug.position.y = 0.43
   const led = new THREE.Mesh(
     new THREE.SphereGeometry(0.018, 12, 12),
-    new THREE.MeshBasicMaterial({ color: '#8fd3ff', toneMapped: false }),
+    new THREE.MeshBasicMaterial({ color: '#1d74c0', toneMapped: false }),
   )
   led.position.set(0.084, 0.33, 0)
   group.add(body, cap, plug, led)

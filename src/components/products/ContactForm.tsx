@@ -34,7 +34,7 @@ const FIELD =
 function Field({ label, error, children, htmlFor }: { label: string; error?: string; children: ReactNode; htmlFor: string }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="mono text-[10px] text-ash">
+      <label htmlFor={htmlFor} className="eyebrow text-[11px] text-ash">
         {label}
       </label>
       {children}
@@ -88,7 +88,7 @@ export function ContactForm({ topic, message, context }: ContactFormProps) {
           </motion.div>
         ) : (
           <motion.form key="form" ref={formRef} noValidate onSubmit={onSubmit} className="space-y-8" exit={{ opacity: 0, y: -12 }}>
-            {context ? <p className="mono border border-ignition/30 bg-ignition/[0.06] px-3 py-2 text-[10px] text-ignition">Re: {context}</p> : null}
+            {context ? <p className="eyebrow border border-ignition/30 bg-ignition/[0.06] px-3 py-2 text-[11px] text-ignition">Re: {context}</p> : null}
             <div className="grid gap-8 sm:grid-cols-2">
               <Field label="Full name" htmlFor={`${id}-name`}>
                 <input id={`${id}-name`} name="name" autoComplete="name" className={FIELD} placeholder="Your name" />
@@ -134,7 +134,7 @@ export function ContactForm({ topic, message, context }: ContactFormProps) {
                 placeholder="Thrust class, timeline, test requirements…"
               />
             </Field>
-            <button type="submit" disabled={status === 'sending'} className="btn-ignite w-full disabled:opacity-70 sm:w-auto" data-cursor="Transmit">
+            <button type="submit" disabled={status === 'sending'} className="btn-ignite w-full disabled:opacity-70 sm:w-auto">
               {status === 'sending' ? 'Transmitting…' : 'Send message'} <ArrowUpRight className="size-4" aria-hidden />
             </button>
           </motion.form>

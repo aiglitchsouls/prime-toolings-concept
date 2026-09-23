@@ -49,10 +49,10 @@ export function TrajectoryChart({ flight, readouts }: TrajectoryChartProps) {
 
   return (
     <svg viewBox="0 0 1000 600" className="h-auto w-full overflow-visible" role="img" aria-label="Illustrative flight profile: 400 kilometer range, 380 kilometer apogee">
-      <g className="mono normal-case" fontSize="11" fill="#62666d">
+      <g className="mono normal-case" fontSize="11" fill="#7a7f87">
         {ALT_TICKS.map((km) => (
           <g key={`a${km}`}>
-            <line x1={X0} x2={X1} y1={altY(km)} y2={altY(km)} stroke="rgba(236,232,225,0.07)" strokeDasharray="3 7" />
+            <line x1={X0} x2={X1} y1={altY(km)} y2={altY(km)} stroke="rgba(14,16,19,0.098)" strokeDasharray="3 7" />
             <text x={X0 - 14} y={altY(km) + 4} textAnchor="end">
               {km}
             </text>
@@ -60,7 +60,7 @@ export function TrajectoryChart({ flight, readouts }: TrajectoryChartProps) {
         ))}
         {RANGE_TICKS.map((km) => (
           <g key={`r${km}`}>
-            <line x1={rangeX(km)} x2={rangeX(km)} y1={GROUND} y2={GROUND + 8} stroke="rgba(236,232,225,0.3)" />
+            <line x1={rangeX(km)} x2={rangeX(km)} y1={GROUND} y2={GROUND + 8} stroke="rgba(14,16,19,0.42)" />
             <text x={rangeX(km)} y={GROUND + 28} textAnchor="middle">
               {km} km
             </text>
@@ -70,25 +70,25 @@ export function TrajectoryChart({ flight, readouts }: TrajectoryChartProps) {
           ALT (km)
         </text>
       </g>
-      <line x1={X0} x2={X1} y1={GROUND} y2={GROUND} stroke="rgba(236,232,225,0.35)" />
-      <line x1={X0} x2={X0} y1={APEX - 10} y2={GROUND} stroke="rgba(236,232,225,0.2)" />
-      <path d={ARC} fill="none" stroke="rgba(236,232,225,0.14)" strokeDasharray="2 8" />
+      <line x1={X0} x2={X1} y1={GROUND} y2={GROUND} stroke="rgba(14,16,19,0.49)" />
+      <line x1={X0} x2={X0} y1={APEX - 10} y2={GROUND} stroke="rgba(14,16,19,0.28)" />
+      <path d={ARC} fill="none" stroke="rgba(14,16,19,0.196)" strokeDasharray="2 8" />
       <motion.path
         ref={pathRef}
         d={ARC}
         fill="none"
-        stroke="#ff4d1a"
+        stroke="#f2461a"
         strokeWidth="2"
         style={{ pathLength: flight }}
       />
-      <line x1={rangeX(200)} x2={rangeX(200)} y1={APEX} y2={GROUND} stroke="rgba(143,211,255,0.25)" strokeDasharray="2 6" />
-      <text x={rangeX(200) + 10} y={APEX - 12} fill="#8fd3ff" fontSize="11" className="mono">
+      <line x1={rangeX(200)} x2={rangeX(200)} y1={APEX} y2={GROUND} stroke="rgba(29,116,192,0.25)" strokeDasharray="2 6" />
+      <text x={rangeX(200) + 10} y={APEX - 12} fill="#1d74c0" fontSize="11" className="mono">
         APOGEE 380 <tspan className="normal-case">km</tspan>
       </text>
       <g ref={markerRef} transform={`translate(${X0} ${GROUND})`}>
-        <circle r="18" fill="rgba(255,77,26,0.18)" />
-        <circle r="5" fill="#ff4d1a" />
-        <path d="M-12 0h-8M12 0h8M0-12v-8M0 12v8" stroke="#ece8e1" strokeWidth="1" />
+        <circle r="18" fill="rgba(242,70,26,0.18)" />
+        <circle r="5" fill="#f2461a" />
+        <path d="M-12 0h-8M12 0h8M0-12v-8M0 12v8" stroke="#0e1013" strokeWidth="1" />
       </g>
     </svg>
   )

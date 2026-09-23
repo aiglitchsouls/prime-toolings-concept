@@ -5,8 +5,6 @@ import { useInView } from 'framer-motion'
 import { ConceptBadge, StatusDot } from '@/components/ui/Badges'
 import { SIM_ENGINE } from '@/data/simulated'
 import { setText } from '@/lib/dom'
-import { rumble } from '@/lib/rumble'
-import { soundStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 import type { EngineScene } from '@/three/EngineScene'
 
@@ -34,7 +32,7 @@ function drawTrace(canvas: HTMLCanvasElement, history: number[]) {
   if (!ctx) return
   const { width, height } = canvas
   ctx.clearRect(0, 0, width, height)
-  ctx.strokeStyle = 'rgba(236,232,225,0.08)'
+  ctx.strokeStyle = 'rgba(14,16,19,0.112)'
   ctx.lineWidth = 1
   for (let i = 1; i < 4; i++) {
     const y = Math.round((height / 4) * i) + 0.5
@@ -43,7 +41,7 @@ function drawTrace(canvas: HTMLCanvasElement, history: number[]) {
     ctx.lineTo(width, y)
     ctx.stroke()
   }
-  ctx.strokeStyle = '#ff4d1a'
+  ctx.strokeStyle = '#f2461a'
   ctx.lineWidth = 1.5
   ctx.beginPath()
   history.forEach((value, i) => {
@@ -90,13 +88,9 @@ export function Telemetry({ sceneRef, startedAt, phase, burn, className }: Telem
         setText(clockRef.current, `T+${seconds.toFixed(2).padStart(5, '0')}`)
       }
       if (traceRef.current) drawTrace(traceRef.current, history)
-      if (soundStore.get()) rumble.level(throttle)
     }
     frame = requestAnimationFrame(loop)
-    return () => {
-      cancelAnimationFrame(frame)
-      rumble.silence()
-    }
+    return () => cancelAnimationFrame(frame)
   }, [isInView, sceneRef, startedAt])
 
   return (

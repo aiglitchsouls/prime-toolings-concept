@@ -13,9 +13,9 @@ export function FlowField({ className }: { className?: string }) {
     <svg viewBox="0 0 480 300" className={className} aria-hidden>
       <defs>
         <linearGradient id="flow-heat" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#8fd3ff" />
-          <stop offset="0.55" stopColor="#ece8e1" />
-          <stop offset="1" stopColor="#ff4d1a" />
+          <stop offset="0" stopColor="#1d74c0" />
+          <stop offset="0.55" stopColor="#0e1013" />
+          <stop offset="1" stopColor="#f2461a" />
         </linearGradient>
       </defs>
       {LINES.map((y, i) => (
@@ -29,8 +29,8 @@ export function FlowField({ className }: { className?: string }) {
           style={{ animationPlayState: 'running', animationDuration: `${1.1 + (i % 4) * 0.25}s` }}
         />
       ))}
-      <ellipse cx="240" cy="150" rx="70" ry="44" fill="#050608" stroke="#ece8e1" strokeOpacity="0.5" />
-      <path d="M190 150 H290" stroke="#ece8e1" strokeOpacity="0.25" strokeDasharray="3 5" />
+      <ellipse cx="240" cy="150" rx="70" ry="44" fill="#ffffff" stroke="#0e1013" strokeOpacity="0.5" />
+      <path d="M190 150 H290" stroke="#0e1013" strokeOpacity="0.25" strokeDasharray="3 5" />
     </svg>
   )
 }

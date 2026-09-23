@@ -20,13 +20,13 @@ const VISUALS: Record<string, ReactNode> = {
   'cad-dfm': (
     <div className="ticks blueprint relative aspect-[4/3] w-full bg-hull p-8">
       <EngineSchematic kind="aerospike" className="text-bone/70" />
-      <p className="mono absolute bottom-4 left-4 text-[9px] text-dim">Concept drawing · aerospike plug contour</p>
+      <p className="eyebrow absolute bottom-4 left-4 text-[10px] text-dim">Concept drawing · aerospike plug contour</p>
     </div>
   ),
   cfd: (
     <div className="ticks relative aspect-[4/3] w-full bg-hull p-6">
       <FlowField className="h-full w-full" />
-      <p className="mono absolute bottom-4 left-4 text-[9px] text-dim">Illustrative flow field</p>
+      <p className="eyebrow absolute bottom-4 left-4 text-[10px] text-dim">Illustrative flow field</p>
     </div>
   ),
   manufacturing: (
@@ -45,7 +45,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
   return (
     <article id={service.id} className="grid items-center gap-10 border-t border-bone/10 py-16 lg:grid-cols-2 lg:gap-20 lg:py-24">
       <Reveal className={cn(isFlipped && 'lg:order-2')}>
-        <p className="mono text-[10px] text-ignition">
+        <p className="eyebrow text-[11px] text-ignition">
           {service.code} · {service.stage}
         </p>
         <h3 className="display mt-4 text-[clamp(28px,3.2vw,48px)]">{service.title}</h3>
@@ -53,7 +53,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         <ul className="mt-8 space-y-3">
           {service.points.map((point) => (
             <li key={point} className="flex gap-4 border-b border-bone/[0.06] pb-3 text-bone/90">
-              <span className="mono pt-1 text-[10px] text-dim">→</span>
+              <span className="mt-[0.8em] h-px w-3 shrink-0 bg-ignition" aria-hidden />
               {point}
             </li>
           ))}
@@ -71,19 +71,19 @@ function TestRig() {
     <section className="page-x pt-10" aria-labelledby="rig-title">
       <div className="ticks relative grid overflow-hidden bg-hull lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <div className="relative z-[1] p-8 sm:p-12">
-          <SectionLabel index="02.3" tone="ignition">
+          <SectionLabel>
             Test campaigns
           </SectionLabel>
-          <p id="rig-title" className="display mt-8 text-[clamp(56px,6.2vw,96px)] leading-[0.8] text-bone">
+          <p id="rig-title" className="display mt-8 text-[clamp(56px,6.2vw,96px)] normal-case leading-[0.8] text-bone">
             {BRAND.testRig.capacity.replace(' ', ' ')}
           </p>
-          <p className="mono mt-4 text-[11px] text-ash">Static test rig · designed, manufactured, tested in-house</p>
+          <p className="eyebrow mt-4 text-ash">Static test rig · designed, manufactured, tested in-house</p>
           <div className="mt-8 flex flex-wrap gap-2">
             {BRAND.testRig.compatible.map((item) => (
               <Chip key={item}>{item}</Chip>
             ))}
           </div>
-          <Link to="/contact?topic=testing" className="btn-ignite mt-10" data-cursor="Book">
+          <Link to="/contact?topic=testing" className="btn-ignite mt-10">
             Book a test campaign <ArrowUpRight className="size-4" aria-hidden />
           </Link>
         </div>
@@ -97,7 +97,6 @@ export function ServicesPage() {
   return (
     <>
       <PageHero
-        index="02"
         label="Engineering services"
         lines={['From CAD', 'to the *test stand.*']}
         intro="The same design, simulation, machining and static fire capability behind our own engines, available for yours."
@@ -111,9 +110,9 @@ export function ServicesPage() {
           />
         }
       />
-      <Pipeline index="02.1" />
+      <Pipeline />
       <section className="page-x pt-28" aria-labelledby="services-detail-title">
-        <SectionLabel index="02.2" tone="ignition">
+        <SectionLabel>
           In detail
         </SectionLabel>
         <SplitHeading

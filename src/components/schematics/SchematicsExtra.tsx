@@ -1,7 +1,7 @@
 // Rotating detonation, pulse detonation, ramjet and injector drawings (240 × 140 viewBox).
 
 const LINE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1 } as const
-const HOT = { fill: 'none', stroke: '#ff4d1a', strokeWidth: 1.4 } as const
+const HOT = { fill: 'none', stroke: '#f2461a', strokeWidth: 1.4 } as const
 
 export function Rde() {
   const ticks = Array.from({ length: 24 }, (_, i) => (i / 24) * Math.PI * 2)
@@ -21,7 +21,7 @@ export function Rde() {
         />
       ))}
       <g className="animate-[spin_1.6s_linear_infinite] group-hover:animate-[spin_0.6s_linear_infinite]" style={{ transformOrigin: '120px 70px' }}>
-        <path d="M120 28 A42 42 0 0 1 150 40" stroke="#ff4d1a" strokeWidth="5" fill="none" strokeLinecap="round" />
+        <path d="M120 28 A42 42 0 0 1 150 40" stroke="#f2461a" strokeWidth="5" fill="none" strokeLinecap="round" />
         <circle cx="150" cy="40" r="3" fill="#fff5ea" />
       </g>
       <text x="120" y="74" textAnchor="middle" fontSize="8" fill="currentColor" className="mono">
@@ -35,7 +35,7 @@ export function Pulse() {
   return (
     <>
       <rect x="20" y="56" width="160" height="28" {...LINE} />
-      <rect x="12" y="62" width="8" height="16" fill="#ff4d1a" />
+      <rect x="12" y="62" width="8" height="16" fill="#f2461a" />
       {[0, 1, 2].map((i) => (
         <path
           key={i}
@@ -57,13 +57,13 @@ export function Pulse() {
 export function Ramjet() {
   return (
     <>
-      <path d="M8 70 L64 58 L64 82 Z" {...LINE} fill="rgba(236,232,225,0.05)" />
+      <path d="M8 70 L64 58 L64 82 Z" {...LINE} fill="rgba(14,16,19,0.07)" />
       <path d="M44 38 H150 L170 46 L222 32 M44 102 H150 L170 94 L222 108" {...LINE} />
       {[104, 118].map((x) => (
         <path key={x} d={`M${x} 60 l8 10 l-8 10`} {...LINE} opacity="0.7" />
       ))}
       {[48, 62, 78, 92].map((y) => (
-        <line key={y} x1="0" y1={y} x2="120" y2={y} {...LINE} stroke="#8fd3ff" opacity="0.6" className="flow" />
+        <line key={y} x1="0" y1={y} x2="120" y2={y} {...LINE} stroke="#1d74c0" opacity="0.6" className="flow" />
       ))}
       <path d="M126 58 H236 M126 70 H236 M126 82 H236" {...HOT} className="flow" />
     </>
@@ -79,7 +79,7 @@ export function InjectorFace() {
   return (
     <>
       <circle cx="74" cy="70" r="52" {...LINE} />
-      <circle cx="74" cy="70" r="3" fill="#ff4d1a" />
+      <circle cx="74" cy="70" r="3" fill="#f2461a" />
       {rings.map(({ r, n }) =>
         Array.from({ length: n }, (_, i) => {
           const a = (i / n) * Math.PI * 2

@@ -4,37 +4,35 @@ export default {
   theme: {
     extend: {
       // Hex values (not CSS vars) so opacity modifiers like text-bone/60 work.
+      // Light theme: void = page white, hull/panel = warm off-white surfaces, bone = ink.
       // Keep in sync with :root in src/index.css.
       colors: {
-        void: '#050608',
-        hull: '#0a0c0f',
-        panel: '#101318',
-        steel: '#1b1f25',
-        bone: '#ece8e1',
-        ash: '#9a9ea5',
-        dim: '#62666d',
-        ignition: '#ff4d1a',
-        flare: '#ff7a3d',
-        ember: '#b8321a',
-        lox: '#8fd3ff',
-        nominal: '#5be49b',
+        void: '#ffffff',
+        hull: '#f5f4f0',
+        panel: '#edebe6',
+        steel: '#e0ddd6',
+        bone: '#0e1013',
+        ash: '#4d525a',
+        dim: '#7a7f87',
+        ignition: '#f2461a',
+        flare: '#ff5a26',
+        ember: '#c2361a',
+        lox: '#1d74c0',
+        nominal: '#14935b',
       },
       fontFamily: {
-        display: ["'Archivo'", 'system-ui', 'sans-serif'],
-        body: ["'Archivo'", 'system-ui', 'sans-serif'],
-        mono: ["'Martian Mono'", 'ui-monospace', 'monospace'],
+        display: ["'Switzer'", 'system-ui', 'sans-serif'],
+        body: ["'Switzer'", 'system-ui', 'sans-serif'],
+        mono: ["'IBM Plex Mono'", 'ui-monospace', 'monospace'],
       },
       zIndex: {
         canvas: '0',
         content: '10',
         nav: '40',
         menu: '50',
-        curtain: '60',
-        cursor: '70',
-        boot: '80',
       },
       maxWidth: {
-        page: '1360px',
+        page: '1440px',
       },
       transitionTimingFunction: {
         out: 'cubic-bezier(0.22, 1, 0.36, 1)',

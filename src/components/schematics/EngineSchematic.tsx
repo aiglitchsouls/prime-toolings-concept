@@ -7,7 +7,7 @@ import { InjectorFace, Pulse, Ramjet, Rde } from './SchematicsExtra'
 // the parent carries `flow-live`.
 
 const LINE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1 } as const
-const HOT = { fill: 'none', stroke: '#ff4d1a', strokeWidth: 1.4 } as const
+const HOT = { fill: 'none', stroke: '#f2461a', strokeWidth: 1.4 } as const
 
 function Exhaust({ x, ys }: { x: number; ys: number[] }) {
   return (
@@ -30,7 +30,7 @@ function Motor({ y, h }: { y: number; h: number }) {
         {...LINE}
         opacity="0.55"
       />
-      <rect x="22" y={mid - 6} width="8" height="12" fill="#ff4d1a" />
+      <rect x="22" y={mid - 6} width="8" height="12" fill="#f2461a" />
       <path d={`M160 ${y + 8} L172 ${mid - 5} L200 ${y - 6} M160 ${y + h - 8} L172 ${mid + 5} L200 ${y + h + 6}`} {...LINE} />
     </g>
   )
@@ -63,7 +63,7 @@ function Liquid() {
       <text x="37" y="43" textAnchor="middle" fontSize="10" fill="currentColor" className="mono">F</text>
       <text x="37" y="105" textAnchor="middle" fontSize="10" fill="currentColor" className="mono">OX</text>
       <path d="M60 39 H88 V62 H110 M60 101 H88 V78 H110" {...HOT} className="flow" />
-      <line x1="110" y1="50" x2="110" y2="90" stroke="#ff4d1a" strokeWidth="3" />
+      <line x1="110" y1="50" x2="110" y2="90" stroke="#f2461a" strokeWidth="3" />
       <rect x="110" y="50" width="40" height="40" {...LINE} />
       <path d="M150 56 Q162 64 168 64 Q194 58 212 34 M150 84 Q162 76 168 76 Q194 82 212 106" {...LINE} />
       <Exhaust x={210} ys={[56, 70, 84]} />
@@ -76,7 +76,7 @@ function Aerospike() {
     <>
       <rect x="30" y="30" width="44" height="18" {...LINE} />
       <rect x="30" y="92" width="44" height="18" {...LINE} />
-      <path d="M74 48 Q150 62 214 68 L214 72 Q150 78 74 92 Z" {...LINE} fill="rgba(236,232,225,0.04)" />
+      <path d="M74 48 Q150 62 214 68 L214 72 Q150 78 74 92 Z" {...LINE} fill="rgba(14,16,19,0.056)" />
       <path d="M74 42 Q150 58 232 66 M74 98 Q150 82 232 74" {...HOT} className="flow" />
       <line x1="20" y1="70" x2="236" y2="70" stroke="currentColor" strokeDasharray="2 5" opacity="0.35" />
     </>

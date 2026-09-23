@@ -44,25 +44,3 @@ export function photoUrl(key: PhotoKey, width: number, height?: number) {
   const size = height ? `w=${width},h=${height},fit=crop` : `w=${width}`
   return `${CDN}/format=auto,${size}/${BUCKET}/${PHOTOS[key]}`
 }
-
-export interface ArchiveShot {
-  photo: PhotoKey
-  label: string
-  kind: 'Static fire' | 'Hardware' | 'Test stand'
-}
-
-// Labels describe only what is visible in each frame.
-export const TEST_ARCHIVE: ArchiveShot[] = [
-  { photo: 'horizontalFire', label: 'Horizontal static fire', kind: 'Static fire' },
-  { photo: 'rigCloseup', label: 'Engine mounted on the test rig', kind: 'Test stand' },
-  { photo: 'blueQuad', label: 'Twin-nozzle booster firings', kind: 'Static fire' },
-  { photo: 'orangePlume', label: 'Full-duration burn', kind: 'Static fire' },
-  { photo: 'standTeam', label: 'Integration on the test stand', kind: 'Test stand' },
-  { photo: 'sparkFire', label: 'Booster firing on the rail', kind: 'Static fire' },
-  { photo: 'injectorBatch', label: 'Injector batch, pre-test', kind: 'Hardware' },
-  { photo: 'nightFire', label: 'Night firing', kind: 'Static fire' },
-  { photo: 'dualBooster', label: 'Dual heavy booster', kind: 'Hardware' },
-  { photo: 'whitePlume', label: 'Liquid engine firing', kind: 'Static fire' },
-  { photo: 'liquidAssembly', label: 'Liquid rocket assembly', kind: 'Hardware' },
-  { photo: 'twinFire', label: 'Back-to-back firings', kind: 'Static fire' },
-]

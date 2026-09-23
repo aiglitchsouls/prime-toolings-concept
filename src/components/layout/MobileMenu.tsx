@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
 import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { SoundToggle } from '@/components/ui/SoundToggle'
 import { BRAND, NAV_LINKS } from '@/config/brand'
 import { EASE_OUT } from '@/lib/motion'
 import { menuStore, useMenuOpen } from '@/lib/store'
@@ -34,40 +34,36 @@ export function MobileMenu() {
       {isOpen ? (
         <motion.div
           id="mobile-menu"
-          className="blueprint fixed inset-0 z-menu flex flex-col bg-void pt-[var(--nav-h)] lg:hidden"
-          initial={{ clipPath: 'inset(0 0 100% 0)' }}
-          animate={{ clipPath: 'inset(0 0 0% 0)' }}
-          exit={{ clipPath: 'inset(0 0 100% 0)' }}
-          transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-menu flex flex-col bg-void pt-[var(--nav-h)] lg:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, ease: EASE_OUT }}
         >
-          <nav className="page-x flex flex-1 flex-col justify-center" aria-label="Mobile">
-            <ul className="space-y-1">
+          <nav className="page-x flex-1 overflow-y-auto" aria-label="Mobile">
+            <ul className="divide-y divide-bone/10 border-b border-bone/10">
               {LINKS.map((link, i) => (
-                <li key={link.to} className="overflow-hidden">
-                  <motion.div
-                    initial={{ y: '100%' }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 + i * 0.05, ease: EASE_OUT }}
-                  >
-                    <Link to={link.to} className="flex items-baseline gap-4 py-2">
-                      <span className="mono text-[10px] text-ignition">{link.code}</span>
-                      <span className="display text-[40px] sm:text-6xl">{link.label}</span>
-                    </Link>
-                  </motion.div>
-                </li>
+                <motion.li
+                  key={link.to}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.05 + i * 0.04, ease: EASE_OUT }}
+                >
+                  <Link to={link.to} className="flex items-center justify-between py-5">
+                    <span className="display text-[34px]">{link.label}</span>
+                    <ArrowRight className="size-5 text-ash" aria-hidden />
+                  </Link>
+                </motion.li>
               ))}
             </ul>
           </nav>
-          <div className="page-x flex items-end justify-between gap-6 border-t border-bone/10 py-6">
-            <div className="space-y-1 text-sm">
-              <a href={BRAND.emailHref} className="block text-bone">
-                {BRAND.email}
-              </a>
-              <a href={BRAND.phoneHref} className="mono block text-[11px] text-ash">
-                {BRAND.phone}
-              </a>
-            </div>
-            <SoundToggle />
+          <div className="page-x space-y-1 border-t border-bone/10 py-6 text-[15px]">
+            <a href={BRAND.emailHref} className="block text-bone">
+              {BRAND.email}
+            </a>
+            <a href={BRAND.phoneHref} className="block text-ash">
+              {BRAND.phone}
+            </a>
           </div>
         </motion.div>
       ) : null}

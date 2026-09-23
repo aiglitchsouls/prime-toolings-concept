@@ -22,8 +22,8 @@ export interface FrameInput {
   light: THREE.PointLight
 }
 
-const LED_ARMED = new THREE.Color('#8fd3ff')
-const LED_FIRING = new THREE.Color('#ff4d1a')
+const LED_ARMED = new THREE.Color('#1d74c0')
+const LED_FIRING = new THREE.Color('#f2461a')
 
 const clamp01 = (x: number) => Math.min(Math.max(x, 0), 1)
 const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2)
@@ -38,12 +38,12 @@ function applyPlume({ c, plume, bloom, light }: FrameInput, flicker: number) {
   plume.group.visible = throttle > 0.002
   plume.throttle.value = throttle * flicker
   plume.shells.scale.set(1, 0.45 + 0.55 * Math.pow(throttle, 0.7), 1)
-  plume.flare.material.opacity = Math.min(1, throttle * 1.1) * 0.55 * flicker
+  plume.flare.material.opacity = Math.min(1, throttle * 1.1) * 0.5 * flicker
   plume.flare.scale.setScalar(0.55 + throttle * 0.55)
-  plume.tipFlare.material.opacity = throttle * 0.3 * flicker
+  plume.tipFlare.material.opacity = throttle * 0.22 * flicker
   plume.tipFlare.scale.setScalar(0.5 + throttle * 0.6)
-  light.intensity = throttle * 14 * flicker
-  bloom.strength = 0.28 + throttle * 0.5
+  light.intensity = throttle * 10 * flicker
+  bloom.strength = throttle * 0.2
 }
 
 function applyNotes({ c, t, notes, isCalm }: FrameInput) {
@@ -52,16 +52,16 @@ function applyNotes({ c, t, notes, isCalm }: FrameInput) {
   notes.floor.material.uniforms.uOpacity.value = c.grid
   notes.floor.visible = c.grid > 0.01
   const hud = c.hud * (1 - c.explode * 0.6)
-  ;(notes.ring.material as THREE.LineBasicMaterial).opacity = 0.2 * hud
-  ;(notes.tipRing.material as THREE.LineBasicMaterial).opacity = 0.16 * hud
-  ;(notes.axis.material as THREE.LineDashedMaterial).opacity = 0.22 * hud
+  ;(notes.ring.material as THREE.LineBasicMaterial).opacity = 0.3 * hud
+  ;(notes.tipRing.material as THREE.LineBasicMaterial).opacity = 0.24 * hud
+  ;(notes.axis.material as THREE.LineDashedMaterial).opacity = 0.3 * hud
   if (isCalm) return
   notes.ring.rotation.y = -t * 0.08
   notes.tipRing.rotation.y = t * 0.2
 }
 
 function applyModel({ c, t, model, isCalm }: FrameInput) {
-  model.wireMaterial.opacity = clamp01(c.wire) * 0.5
+  model.wireMaterial.opacity = clamp01(c.wire) * 0.62
   model.wireMaterial.visible = c.wire > 0.01
   const explode = easeInOut(clamp01(c.explode))
   for (const part of model.parts) part.group.position.y = part.travel * explode

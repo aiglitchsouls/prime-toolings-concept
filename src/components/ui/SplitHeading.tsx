@@ -21,7 +21,7 @@ function renderLine(line: string) {
     .split('*')
     .map((segment, i) =>
       i % 2 === 1 ? (
-        <span key={i} className="text-ignition">
+        <span key={i} className="italic text-ignition">
           {segment}
         </span>
       ) : (

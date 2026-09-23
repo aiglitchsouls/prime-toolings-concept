@@ -16,7 +16,7 @@ const FRAMEWORKS = DOMAINS.reduce((sum, domain) => sum + domain.items.length, 0)
 function Deliverables() {
   return (
     <section className="page-x" aria-labelledby="deliver-title">
-      <SectionLabel index="03.1" tone="ignition">
+      <SectionLabel>
         What we deliver
       </SectionLabel>
       <SplitHeading
@@ -32,7 +32,7 @@ function Deliverables() {
               <Reveal delay={(i % 3) * 0.07} className="group flex h-full flex-col p-7 transition-colors duration-500 hover:bg-hull">
                 <div className="flex items-center justify-between">
                   <Icon className="size-6 text-bone/60 transition-colors group-hover:text-ignition" strokeWidth={1.25} aria-hidden />
-                  <span className="mono text-[10px] text-dim">{pad(i + 1)}</span>
+                  <span className="eyebrow text-[11px] text-dim">{pad(i + 1)}</span>
                 </div>
                 <h3 className="display-soft mt-10 text-[22px] text-bone">{item.title}</h3>
                 <p className="mt-3 text-[15px] text-ash">{item.body}</p>
@@ -49,21 +49,24 @@ function WhyUs() {
   return (
     <section className="page-x grid gap-14 pt-28 lg:grid-cols-2 lg:gap-20" aria-labelledby="why-title">
       <div>
-        <SectionLabel index="03.3" tone="ignition">
+        <SectionLabel>
           Why Prime Toolings
         </SectionLabel>
         <SplitHeading id="why-title" lines={['Built by people who', '*fire what they draw.*']} className="display mt-6 text-[clamp(30px,3.6vw,52px)]" />
         <div className="mt-10 flex flex-wrap gap-2">
-          <span className="mono mr-2 self-center text-[10px] text-dim">Ideal for</span>
+          <span className="eyebrow mr-2 self-center text-[11px] text-dim">Ideal for</span>
           {IDEAL_FOR.map((item) => (
             <Chip key={item}>{item}</Chip>
           ))}
         </div>
+        <Link to="/contact?topic=tot" className="btn-ignite mt-12">
+          Discuss a transfer program <ArrowUpRight className="size-4" aria-hidden />
+        </Link>
       </div>
       <ol className="border-b border-bone/10">
         {WHY_US.map((item, i) => (
           <li key={item} className="flex gap-5 border-t border-bone/10 py-4 text-bone/90">
-            <span className="mono pt-1 text-[10px] text-ignition">{pad(i + 1)}</span>
+            <span className="eyebrow pt-1 text-[11px] text-ignition">{pad(i + 1)}</span>
             {item}
           </li>
         ))}
@@ -76,7 +79,6 @@ export function TechTransferPage() {
   return (
     <>
       <PageHero
-        index="03"
         label="Transfer of tech & consultation"
         lines={['Engineering', 'intelligence,', '*transferred.*']}
         intro={TOT_INTRO}
@@ -92,18 +94,13 @@ export function TechTransferPage() {
       />
       <Deliverables />
       <section className="page-x pt-28" aria-labelledby="domains-title">
-        <SectionLabel index="03.2" tone="ignition">
+        <SectionLabel>
           Domains
         </SectionLabel>
         <SplitHeading id="domains-title" lines={['Four domains.', `*${FRAMEWORKS} frameworks.*`]} className="display mb-12 mt-6 text-[clamp(34px,4.4vw,64px)]" />
         <DomainTabs />
       </section>
       <WhyUs />
-      <section className="page-x pt-24">
-        <Link to="/contact?topic=tot" className="btn-ignite" data-cursor="Discuss">
-          Discuss a transfer program <ArrowUpRight className="size-4" aria-hidden />
-        </Link>
-      </section>
     </>
   )
 }

@@ -41,7 +41,7 @@ export const NAV_LINKS = [
   { to: '/services', label: 'Services', code: '02' },
   { to: '/tot-and-consultation', label: 'Tech transfer', code: '03' },
   { to: '/edtech', label: 'Academy', code: '04' },
-  { to: '/about', label: 'About', code: '05' },
+  { to: '/about', label: 'Company', code: '05' },
 ] as const
 
 // "We have designed, manufactured & tested" poster on the live home page

@@ -2,7 +2,6 @@ import { ArrowUpRight } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 
 import { ContactForm, TOPICS } from '@/components/products/ContactForm'
-import { DomainGlyph } from '@/components/schematics/DomainGlyph'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { SplitHeading } from '@/components/ui/SplitHeading'
 import { BRAND, SOCIALS } from '@/config/brand'
@@ -29,7 +28,7 @@ export function ContactPage() {
       <div className="blueprint pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_80%)]" aria-hidden />
       <div className="page-x relative grid gap-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
         <div>
-          <SectionLabel index="06" tone="ignition">
+          <SectionLabel>
             Contact
           </SectionLabel>
           <SplitHeading
@@ -45,7 +44,7 @@ export function ContactPage() {
 
           <dl className="mt-12 space-y-6">
             <div>
-              <dt className="mono text-[10px] text-dim">Email</dt>
+              <dt className="eyebrow text-[11px] text-dim">Email</dt>
               <dd>
                 <a href={BRAND.emailHref} className="display-soft text-[clamp(20px,2vw,28px)] text-bone transition-colors hover:text-ignition">
                   {BRAND.email}
@@ -53,7 +52,7 @@ export function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt className="mono text-[10px] text-dim">Phone</dt>
+              <dt className="eyebrow text-[11px] text-dim">Phone</dt>
               <dd>
                 <a href={BRAND.phoneHref} className="display-soft text-[clamp(20px,2vw,28px)] text-bone transition-colors hover:text-ignition">
                   {BRAND.phone}
@@ -61,7 +60,7 @@ export function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt className="mono text-[10px] text-dim">Base</dt>
+              <dt className="eyebrow text-[11px] text-dim">Base</dt>
               <dd className="text-bone">
                 {BRAND.city}, {BRAND.region}
               </dd>
@@ -75,20 +74,13 @@ export function ContactPage() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="mono inline-flex min-h-[44px] items-center gap-2 border border-bone/15 px-4 text-[10px] text-ash transition-colors hover:border-bone/50 hover:text-bone"
+                  className="eyebrow inline-flex min-h-[44px] items-center gap-2 border border-bone/15 px-4 text-[11px] text-ash transition-colors hover:border-bone/50 hover:text-bone"
                 >
                   {social.label} <ArrowUpRight className="size-3" aria-hidden />
                 </a>
               </li>
             ))}
           </ul>
-
-          <div className="mt-14 hidden items-center gap-4 lg:flex">
-            <DomainGlyph domain="ew" className="size-14" />
-            <p className="mono text-[10px] text-dim">
-              Listening on {BRAND.coordinates}
-            </p>
-          </div>
         </div>
 
         <ContactForm key={`${prefill.topic}-${prefill.context ?? ''}`} topic={prefill.topic} message={prefill.message} context={prefill.context} />

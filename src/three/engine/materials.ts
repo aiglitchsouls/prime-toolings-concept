@@ -141,5 +141,5 @@ export function createEngineMaterials(shared: SharedUniforms): EngineMaterials {
 }
 
 export function createWireMaterial() {
-  return new THREE.LineBasicMaterial({ color: '#ece8e1', transparent: true, opacity: 0, depthWrite: false })
+  return new THREE.LineBasicMaterial({ color: '#1a1d22', transparent: true, opacity: 0, depthWrite: false })
 }
